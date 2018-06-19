@@ -4,6 +4,7 @@ import axios from 'axios'
 import { 
   Card,
   Image,
+  Button
 } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { setHeaders } from '../reducers/headers'
@@ -21,6 +22,16 @@ class Home extends Component {
       })
   }
 
+  addAFriend = (id) => {
+    const { dispatch } = this.props
+    const { Friends } = this.state
+    axios.put(`/api/users/${id}`)
+      .then( res => {
+        dispatch(setHeaders(res.headers))
+        this.setState({ Friends: Friends.filter(c => c.id !== id) })
+      })
+  }
+
   render() {
     return (
       <Fragment>
@@ -34,6 +45,9 @@ class Home extends Component {
                 <h2>{friend.name}</h2>
                 <Image size="small" src={friend.image} />
                 <h3>{friend.email}</h3>
+                <Button onClick={this.addAFriend(friend.id)}>
+                  Add Friend
+                </Button>
               </Card>
               )
             }

@@ -9,7 +9,7 @@ class MyFriends extends React.Component {
 
   componentDidMount() {
     const { dispatch } = this.props
-    axios.get('/api/friends')
+    axios.get('/api/my_friends')
       .then( ({ data, headers }) => {
         dispatch(setHeaders(headers))
         this.setState({ friends: data })

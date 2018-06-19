@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :posts, only: [:index, :update]
     resources :users, only: [:index, :update]
+    get 'my_friends', to: 'posts#my_friends'
   end
 
   #Do not place any routes below this one
