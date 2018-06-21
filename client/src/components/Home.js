@@ -10,6 +10,8 @@ import { connect } from 'react-redux'
 import { setHeaders } from '../reducers/headers'
 import { updateFriend } from '../reducers/user'
 import { getPosts } from '../reducers/post'
+import { Link } from 'react-router-dom';
+import { allUsers } from '../reducers/user'
 
 
 class Home extends Component {
@@ -17,20 +19,17 @@ class Home extends Component {
 
   componentDidMount() {
     axios.get('/api/users')
-      .then( res => {
-        this.props.dispatch(setHeaders(res.headers))
-        this.setState({ friends: res.data })
-      })
+    .then( res => {
+      this.props.dispatch(setHeaders(res.headers))
+      this.setState({ friends: res.data })
+    })
   }
 
   addAFriend = (id) => {
     this.props.dispatch(updateFriend(id))
   }
 
-  viewPosts = (id) => {
-    debugger
-    this.props.dispatch(getPosts)
-  }
+
 
   render() {
     return (
@@ -48,9 +47,13 @@ class Home extends Component {
                 <Button onClick={() => this.addAFriend(friend.id)}>
                   Add Friend
                 </Button>
-                <Button onClick={() => this.viewPosts(friend.id)}>
-                  View Posts
-                </Button>
+                {/* <Button onClick={() => this.viewPosts(friend.id)}> */}
+
+                <Link to={`/posts/${friend.id}`}>
+                  <Button>
+                    View Posts
+                  </Button>
+                </Link>
               </Card>
               )
             }

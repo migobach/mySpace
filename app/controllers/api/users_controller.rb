@@ -1,4 +1,5 @@
 class Api::UsersController < ApplicationController
+  before_action :set_user, only: [:show]
   
   def index
     render json: User.all

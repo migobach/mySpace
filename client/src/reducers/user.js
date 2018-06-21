@@ -7,6 +7,7 @@ const LOGOUT = 'LOGOUT';
 const VALIDATE_TOKEN = 'VALIDATE_TOKEN';
 const UPDATE_FRIEND = 'UPDATE_FRIEND'
 const ALL_POSTS = 'ALL_POSTS'
+const ALL_USERS = 'ALL_USERS'
 
 const login = (user) => {
   return { type: LOGIN, user };
@@ -14,6 +15,11 @@ const login = (user) => {
 
 const logout = () => {
   return { type: LOGOUT };
+}
+
+const setUsers = (users) => {
+  debugger
+  return { type: 'SET_USERS', users: users }
 }
 
 export const registerUser = (user, history) => {
@@ -108,6 +114,17 @@ export const updateFriend = (id) => {
   }
 }
 
+export const allUsers = () => {
+  return(dispatch) => {
+    axios.get('/api/users')
+      .then( res => { 
+        debugger
+        dispatch(setHeaders(res.headers))
+        dispatch(setUsers(res.data))
+      })
+  }
+}
+
 export default (state = {}, action) => {
   switch (action.type) {
     case LOGIN:
@@ -116,6 +133,9 @@ export default (state = {}, action) => {
       return {};
     case UPDATE_FRIEND:
       return action.user 
+    case 'SET_USERS':
+      debugger
+      return action.users
     default:
       return state;
   }

@@ -7,15 +7,19 @@ const ADD_POST = 'ADD_POST'
 const UPDATE_POST = 'UPDATE_POST'
 const DELETE_POST =  'DELETE_POST'
 
-export const getPosts = () => {
+export const getPosts = (id) => {
   debugger
 	return (dispatch) => {
-		axios.get('/api/posts')
+		axios.get(`api/posts/${id}`)
 		.then(res => {
+      debugger
 			const { headers } = res;
       dispatch(setHeaders(headers));
 			dispatch({ type: POSTS, posts: res.data })
-		})
+    })
+    .catch( err => {
+      debugger
+    })
 	}
 }
 

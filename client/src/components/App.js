@@ -10,6 +10,7 @@ import ProtectedRoute from './ProtectedRoute';
 import AuthRoute from './AuthRoute';
 import FetchUser from './FetchUser';
 import MyFriends from './MyFriend';
+import Posts from './Posts'
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
           <Switch>
             <ProtectedRoute exact path='/' component={Home} />
             <ProtectedRoute exact path='/add_friends/:id' component={MyFriends} />
+            <ProtectedRoute exact path='/posts/:id' component={Posts} />
         
             <AuthRoute exact path='/login' component={Login} />
             <AuthRoute exact path='/register' component={Register} />
