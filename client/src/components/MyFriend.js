@@ -9,7 +9,7 @@ class MyFriends extends React.Component {
 
   componentDidMount() {
     const { dispatch } = this.props
-    axios.get('/api/my_friends')
+    axios.get('/api/my_friends/')
       .then( ({ data, headers }) => {
         dispatch(setHeaders(headers))
         this.setState({ friends: data })
@@ -39,3 +39,5 @@ class MyFriends extends React.Component {
 }
 
 export default connect()(MyFriends)
+
+// add id to axios

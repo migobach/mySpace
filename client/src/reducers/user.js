@@ -5,6 +5,7 @@ import { setHeaders } from './headers';
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 const VALIDATE_TOKEN = 'VALIDATE_TOKEN';
+const UPDATE_FRIEND = 'UPDATE_FRIEND'
 
 const login = (user) => {
   return { type: LOGIN, user };
@@ -96,12 +97,24 @@ export const validateToken = (callBack = f => f) => {
   };
 };
 
+export const updateFriend = (id) => {
+  return(dispatch) => {
+    axios.get(`/api/add_friends/${id}`)
+    .then( res => {
+      dispatch(setHeaders(res.headers))
+        dispatch({ type: UPDATE_FRIEND, user: res.data })
+      })
+  }
+}
+
 export default (state = {}, action) => {
   switch (action.type) {
     case LOGIN:
     return action.user;
     case LOGOUT:
     return {};
+    case UPDATE_FRIEND:
+     return action.user 
     default:
     return state;
   }

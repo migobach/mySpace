@@ -9,16 +9,12 @@ class User < ActiveRecord::Base
 
   serialize :friends, Array
 
-  def self.friend_posts(ids)
+  def self.friend_list(ids)
     ids = ids.empty? ? [0] : ids
     User.where("id NOT IN(?)", ids).order
   end
-
-  def self.liked(ids)
-    ids = ids.empty? ? [0] : ids
-    User.where("id IN (?)", ids)
-  end
-
 end
 
+
+# User.find_by_sql("")
 
