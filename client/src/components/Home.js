@@ -8,7 +8,8 @@ import {
 } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { setHeaders } from '../reducers/headers'
-import { updateFriend } from '../reducers/user';
+import { updateFriend } from '../reducers/user'
+import { getPosts } from '../reducers/post'
 
 
 class Home extends Component {
@@ -23,10 +24,12 @@ class Home extends Component {
   }
 
   addAFriend = (id) => {
-    const { dispatch } = this.props
-    const { friends } = this.state
     this.props.dispatch(updateFriend(id))
-   
+  }
+
+  viewPosts = (id) => {
+    debugger
+    this.props.dispatch(getPosts)
   }
 
   render() {
@@ -44,6 +47,9 @@ class Home extends Component {
                 <h3>{friend.email}</h3>
                 <Button onClick={() => this.addAFriend(friend.id)}>
                   Add Friend
+                </Button>
+                <Button onClick={() => this.viewPosts(friend.id)}>
+                  View Posts
                 </Button>
               </Card>
               )

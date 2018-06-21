@@ -1,6 +1,8 @@
 class Api::PostsController < ApplicationController
   def index
-    render json: User.friend_posts(current_user.friends)
+    binding.pry
+    render json: Post.all
+    # render json: User.(current_user.posts)
   end
 
   def add_friends
@@ -10,7 +12,7 @@ class Api::PostsController < ApplicationController
   end
 
   def my_friends
-    # put in my sql method, 
+    # put in my sql method here to show my friends on the page
   end
 
   def update

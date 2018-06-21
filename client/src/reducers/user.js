@@ -6,6 +6,7 @@ const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 const VALIDATE_TOKEN = 'VALIDATE_TOKEN';
 const UPDATE_FRIEND = 'UPDATE_FRIEND'
+const ALL_POSTS = 'ALL_POSTS'
 
 const login = (user) => {
   return { type: LOGIN, user };
@@ -110,13 +111,13 @@ export const updateFriend = (id) => {
 export default (state = {}, action) => {
   switch (action.type) {
     case LOGIN:
-    return action.user;
+      return action.user;
     case LOGOUT:
-    return {};
+      return {};
     case UPDATE_FRIEND:
-     return action.user 
+      return action.user 
     default:
-    return state;
+      return state;
   }
 };
 
