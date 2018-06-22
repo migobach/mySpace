@@ -14,7 +14,6 @@ import axios from 'axios'
 import { setHeaders } from '../reducers/headers'
 
 class Posts extends React.Component {
-
   state = { friend: '', posts: [] }
 
   viewPosts = (id) => {
@@ -22,25 +21,35 @@ class Posts extends React.Component {
   
 	componentDidMount() {
     const id = this.props.match.params.id
-    axios.get(`/api/users/${ id }`)
-      .then( res => {
-        this.setHeaders({ headers: res.headers })
-        this.setState({ friend: res.data })
-        // this.props.dispatch(getPosts(this.state.friend.id))
-      })
-      .catch( err => {
-        console.log(err)
-      })
+    this.setState({ friend: id })
+    // axios.get(`/api/users/${ id }`)
+    //   .then( res => {
+    //     this.setHeaders({ headers: res.headers })
+    //     this.setState({ friend: res.data })
+    //     // this.props.dispatch(getPosts(this.state.friend.id))
+    //   })
+    //   .catch( err => {
+    //     console.log(err)
+    //   })
+      debugger
       axios.get(`/api/posts/${id}`)
         .then( res => {
           this.setState({ posts: res.data })
         })
+        .catch( err => {
+          console.log(err) 
+        })
+        debugger
     // this.viewPosts()
     // this.props.dispatch( getPosts(this.props.match.params.friend_id) )
-	}
-
+  }
+  
+  // get the posts to be filtered - maybe set a variable or state and then pass that into the render function with a filter on it. 
+  
   posts = () => {
-    return this.state.posts.map( post => 
+    debugger
+    // return this.state.posts.map( post => 
+    return this.state.posts.filter(p => p.user_id == this.state.friend).map( post => 
       <Card key={post.id}>
         <Card.Content>
           <Card.Description>
@@ -50,11 +59,11 @@ class Posts extends React.Component {
             {post.body}
           </Card.Meta>
         </Card.Content>
-        {/* <Card.Content extra>
+        <Card.Content extra>
           <Button onClick={() => this.props.dispatch(deletePost(post.id))}>
             Delete
           </Button>
-        </Card.Content> */}
+        </Card.Content>
       </Card>
     )
   }
